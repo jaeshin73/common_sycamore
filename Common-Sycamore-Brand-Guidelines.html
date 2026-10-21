@@ -20,7 +20,7 @@
   --ok-bg:#E4F1E9; --ok:#145A31; --warn-bg:#FAEFE1; --warn:#8D4D04; --err-bg:#FAE6E4; --err:#8D1D15; --err-line:#D92D20;
   --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:40px;
+  --r-sm:8px; --r-md:16px; --r-lg:24px;
   --hero: clamp(4rem, 2.24rem + 7.51vw, 9rem);
   --h1: clamp(3rem, 2.47rem + 2.25vw, 4.5rem);
   --h2: clamp(2.5rem, 2.15rem + 1.5vw, 3.5rem);
@@ -101,7 +101,7 @@ p{margin:0}
 .dark .chead .num{color:#A99E96}
 .chead h2{font-size:var(--h2);line-height:1.14;letter-spacing:-.015em;margin-top:8px}
 @media (max-width:860px){ .chead{grid-template-columns:1fr;margin-bottom:40px} .chapter{padding-block:72px} }
-.block{margin-top:72px}
+.block{margin-top:96px}
 .block > h3{font-size:var(--h5);font-weight:600;line-height:1.3;margin-bottom:8px}
 .block > p.sub{color:var(--sub);max-width:62ch;margin-bottom:28px}
 .dark .block > p.sub{color:#CCBFB6}
@@ -185,13 +185,13 @@ td.mono{font-size:13px}
 
 /* layout */
 .space-row{display:grid;grid-template-columns:110px 60px 140px minmax(0,1fr);gap:16px;align-items:center;padding-block:10px;border-top:1px solid var(--line);font-size:15px}
-.space-row .bar{height:14px;background:var(--pink);border-radius:2px}
+.space-row .bar{background:var(--pink);border-radius:2px}
 @media (max-width:640px){ .space-row{grid-template-columns:90px 50px 1fr} .space-row .use{grid-column:1/-1;color:var(--muted)} }
 .cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;height:120px}
 .cols div{background:rgba(253,158,255,.35);border-radius:4px}
 @media (max-width:760px){ .cols{grid-template-columns:repeat(4,minmax(0,1fr))} .cols div:nth-child(n+5){display:none} }
-.radii{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
-.radii .r{height:110px;background:var(--white);border:2px solid var(--blue);margin-bottom:12px}
+.radii{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.radii .r{height:110px;border:2px solid var(--blue);margin-bottom:12px;background-color:var(--white);background-image:radial-gradient(circle,var(--blue) 1px,transparent 1.4px),radial-gradient(circle,var(--blue) 1px,transparent 1.4px);background-size:10px 10px;background-position:0 0,5px 5px}
 @media (max-width:900px){ .radii{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .ratios{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
 .ratios figure{margin:0;display:grid;gap:10px}
@@ -254,7 +254,7 @@ details.acc[open] summary i{background:var(--blue)}
 details.acc[open] summary i::before{background:#fff}
 details.acc[open] summary i::after{display:none}
 details.acc p{margin-top:12px;color:var(--sub);max-width:62ch}
-.cta{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:clamp(32px,6vw,64px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:40px;align-items:center;overflow:hidden}
+.cta{background:var(--blue);color:#fff;border-radius:var(--r-lg);padding:clamp(32px,6vw,64px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:40px;align-items:center;overflow:hidden}
 .cta h3{font-size:var(--h2);line-height:1.14;font-weight:500}
 .cta .shapes{position:relative;height:240px}
 @media (max-width:760px){ .cta{grid-template-columns:1fr} .cta .shapes{height:160px} }
@@ -542,8 +542,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
       <div class="radii">
         <div><div class="r" style="border-radius:8px"></div><b>radius/sm · 8</b><p class="mono">Tooltips, checkboxes</p></div>
         <div><div class="r" style="border-radius:16px"></div><b>radius/md · 16</b><p class="mono">Alerts, small tiles</p></div>
-        <div><div class="r" style="border-radius:24px"></div><b>radius/lg · 24</b><p class="mono">Cards, images</p></div>
-        <div><div class="r" style="border-radius:40px"></div><b>radius/xl · 40</b><p class="mono">Banners, CTA panels</p></div>
+        <div><div class="r" style="border-radius:24px"></div><b>radius/lg · 24</b><p class="mono">Cards, images, banners</p></div>
         <div><div class="r" style="border-radius:999px"></div><b>radius/full</b><p class="mono">Buttons, inputs, tags</p></div>
       </div>
     </div>
@@ -556,7 +555,6 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
         <figure><img data-photo alt="" style="width:160px;aspect-ratio:1/1;border-radius:24px"><figcaption><b>1:1</b><span>Social, thumbnails</span></figcaption></figure>
         <figure><img data-photo alt="" style="width:160px;aspect-ratio:4/5;border-radius:999px 999px 0 0"><figcaption><b>4:5 arch</b><span>Portraits</span></figcaption></figure>
         <figure><img data-photo alt="" style="width:120px;aspect-ratio:3/5;border-radius:999px"><figcaption><b>3:5 pill</b><span>People in a row</span></figcaption></figure>
-        <figure><img data-photo alt="" style="width:100px;aspect-ratio:1/2;border-radius:999px 0 0 999px"><figcaption><b>1:2 half</b><span>Beside text</span></figcaption></figure>
       </div>
     </div>
   </div>
@@ -694,7 +692,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
   $('#picto').innerHTML = PICTO.map(([t,d,svg])=>`<div><svg viewBox="0 0 64 64" role="img" aria-label="${t} pictogram">${svg}</svg><b style="font-size:18px;font-weight:600">${t}</b><span style="color:var(--sub);font-size:15px">${d}</span></div>`).join('');
 
   // spacing
-  $('#spacing').innerHTML = SPACE.map(([v,u])=>`<div class="space-row"><span class="mono" style="color:var(--ink)">space/${v}</span><span class="mono">${v}px</span><span><span class="bar" style="display:block;width:${v}px"></span></span><span class="use">${u}</span></div>`).join('');
+  $('#spacing').innerHTML = SPACE.map(([v,u])=>`<div class="space-row"><span class="mono" style="color:var(--ink)">space/${v}</span><span class="mono">${v}px</span><span><span class="bar" style="display:block;width:${v}px;height:${v}px"></span></span><span class="use">${u}</span></div>`).join('');
 
   // copy hex
   document.addEventListener('click', e => {
