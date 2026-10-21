@@ -66,7 +66,8 @@ p{margin:0}
 @media (max-width:640px){ .nav .wrap{min-height:64px;padding:6px 10px 6px 20px} }
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ .nav .wrap{background:rgba(255,255,255,.95)} }
 .nav .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);flex:none}
-.nav .brand svg{height:28px;width:auto}
+.nav .brand svg{height:34px;width:auto}
+@media (max-width:640px){ .nav .brand svg{height:30px} }
 .nav .brand span{font-weight:600;font-size:15px;border-left:1px solid var(--line);padding-left:12px}
 .nav ul{list-style:none;margin:0 0 0 auto;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
 .nav ul::-webkit-scrollbar{display:none}
@@ -342,7 +343,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
           <rect x="1260" y="281" width="422.4" height="660" fill="#E7DCD8"/>
           <image class="h-photo" data-photo x="1234.7" y="241.4" width="473" height="739" preserveAspectRatio="xMidYMid slice"/>
         </g>
-        <path class="h-leaf" transform="translate(1179 820)" fill="#F5D100" d="M 0 114.28 C 0 51.16 51.16 0 114.28 0 L 191.62 0 C 243.26 0 285.12 41.86 285.12 93.5 C 285.12 145.14 243.26 187 191.62 187 L 0 187 Z"/>
+        <g class="h-leaf"><path class="h-leaf-shape" transform="translate(1179 820)" fill="#F5D100" d="M 0 114.28 C 0 51.16 51.16 0 114.28 0 L 191.62 0 C 243.26 0 285.12 41.86 285.12 93.5 C 285.12 145.14 243.26 187 191.62 187 L 0 187 Z"/></g>
       </svg>
     </div>
     <h1 id="hero-title" class="h-title">Claim your<br>story.</h1>
@@ -719,7 +720,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
   // hero: shapes move like the logo, photo drifts on scroll
   const heroSvg = document.querySelector('.hero-art svg');
   if (heroSvg) {
-    const hRing = heroSvg.querySelector('.h-ring'), hDisc = heroSvg.querySelector('.h-disc'), hPill = heroSvg.querySelector('.h-pill'), hLeaf = heroSvg.querySelector('.h-leaf'), hPhoto = heroSvg.querySelector('.h-photo');
+    const hRing = heroSvg.querySelector('.h-ring'), hDisc = heroSvg.querySelector('.h-disc'), hPill = heroSvg.querySelector('.h-pill'), hLeaf = heroSvg.querySelector('.h-leaf'), hPhoto = heroSvg.querySelector('.h-photo'), hLeafShape = heroSvg.querySelector('.h-leaf-shape');
     const hTitle = document.querySelector('.h-title');
     hLeaf.style.transformOrigin = '1179px 1007px';
     const reducedHero = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -729,7 +730,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
         hRing.animate([{strokeDasharray:'0 1',easing:'cubic-bezier(.65,0,.35,1)'},{strokeDasharray:'1 0'}],{duration:1100,fill:'both'}),
         hDisc.animate([{opacity:0},{opacity:1}],{duration:80,delay:1060,fill:'both'}),
         hPill.animate([{opacity:0,transform:'translateY(40px)'},{opacity:1,transform:'translateY(0)'}],{duration:800,delay:500,easing:'cubic-bezier(.2,.8,.3,1)',fill:'both'}),
-        hLeaf.animate([{transform:'translate(1179px,820px) scale(0) rotate(-22deg)',offset:0,easing:'cubic-bezier(.2,.8,.3,1)'},{transform:'translate(1179px,820px) scale(1.04) rotate(3deg)',offset:.7,easing:'ease-in-out'},{transform:'translate(1179px,820px) scale(1) rotate(0deg)'}],{duration:900,delay:1000,fill:'both'}),
+        hLeaf.animate([{transform:'scale(0,.82)',offset:0,easing:'cubic-bezier(.2,.8,.3,1)'},{transform:'scale(1.03,1)',offset:.75,easing:'ease-in-out'},{transform:'scale(1,1)'}],{duration:900,delay:1000,fill:'both'}),
         hTitle.animate([{opacity:0},{opacity:1}],{duration:800,delay:1150,easing:'ease-out',fill:'both'}),
       ];
       heroAnims.forEach(a => a.pause());
@@ -743,6 +744,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
         if (r.bottom < 0 || r.top > innerHeight) return;
         const p = Math.max(-1, Math.min(1, ((r.top + r.height / 2) - innerHeight / 2) / innerHeight));
         hPhoto.setAttribute('transform', `translate(0 ${(p * 39).toFixed(2)})`);
+        hLeafShape.setAttribute('transform', `translate(1179 ${(820 - p * 18).toFixed(2)})`);
       };
       addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, {passive:true});
       drift();
