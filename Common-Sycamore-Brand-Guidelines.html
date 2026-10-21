@@ -161,6 +161,34 @@ td.mono{font-size:13px}
 .tok{display:inline-flex;align-items:center;gap:8px}
 .tok i{width:18px;height:18px;border-radius:5px;border:1px solid var(--line);display:inline-block}
 
+
+/* contrast check */
+.ctgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1000px){ .ctgrid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:520px){ .ctgrid{grid-template-columns:1fr} }
+.ct{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.ct-head{padding:12px 16px;display:flex;justify-content:space-between;gap:8px;font-size:14px;border-bottom:1px solid var(--line)}
+.ct-head b{font-weight:600}
+.ct-row{padding:16px;display:grid;gap:10px}
+.ct-row + .ct-row{border-top:1px solid rgba(0,0,0,.06)}
+.ct-row .aa{font-size:22px;font-weight:600;line-height:1.2}
+.ct-row .aa small{display:block;font-size:15px;font-weight:400;margin-top:2px}
+.ct-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ct-ratio{font:500 13px/1 var(--mono)}
+.badge{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--sans);padding:6px 10px;border-radius:999px;background:#fff;color:var(--ink);white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(28,25,23,.14)}
+.badge i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.badge.pass i{background:#1E8A4C} .badge.large i{background:#D97706} .badge.fail i{background:#D92D20}
+.tester{margin-top:24px;display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr) minmax(0,220px);gap:24px;align-items:stretch}
+.tester-controls{display:grid;gap:16px;align-content:start}
+.tester select{font:400 16px/24px var(--sans);border-radius:999px;border:1px solid var(--n500);padding:10px 16px;background:#fff;color:var(--ink);width:100%}
+.tester-sample{border-radius:var(--r-md);padding:28px;display:grid;gap:12px;align-content:center;border:1px solid var(--line);min-height:180px}
+.ts-big{font-size:32px;font-weight:500;line-height:1.15;letter-spacing:-.01em}
+.ts-body{font-size:16px;line-height:1.6}
+.tester-result{display:grid;gap:10px;align-content:center}
+.tester-result .big{font:500 40px/1 var(--sans);letter-spacing:-.02em}
+.tester-result ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14px}
+.tester-result li{display:flex;justify-content:space-between;gap:8px;align-items:center}
+@media (max-width:900px){ .tester{grid-template-columns:1fr} }
 /* type */
 .typerow{display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;padding-block:28px;border-top:1px solid var(--line);align-items:baseline}
 .typerow .spec{display:grid;gap:2px}
@@ -466,10 +494,29 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
 
     <div class="block">
       <h3>Accessibility</h3>
-      <div class="grid g3">
+      <p class="sub">Every pairing is checked against WCAG 2.1 AA: at least 4.5:1 for body text, and 3:1 for large text and UI shapes.</p>
+      <div class="grid g2">
         <div class="panel flat"><b>Blue works as text and as a fill.</b><p style="color:var(--sub);margin-top:8px">White on Blue 500 reaches 8.3:1, well past the 4.5:1 AA minimum for body text.</p></div>
         <div class="panel flat"><b>Yellow and Pink are fills only.</b><p style="color:var(--sub);margin-top:8px">On white they reach only 1.5:1 and 1.8:1. Put Ink (#1C1917) text on them instead: 11.7:1 and 9.6:1.</p></div>
+        <div class="panel flat"><b>Secondary text is Neutral 700.</b><p style="color:var(--sub);margin-top:8px">Neutral 700 (#3F3A37) reaches 11.2:1 on white. Neutral 400 (#89807A) is for disabled text only.</p></div>
         <div class="panel flat"><b>Never color alone.</b><p style="color:var(--sub);margin-top:8px">Status always pairs a color with an icon or a label, so it reads in grayscale and for colorblind readers.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Contrast check</h3>
+      <p class="sub">Each brand color with White and Ink (#1C1917) text, plus brand-colored text on White and Ink, measured live. AA needs 4.5:1 for body text; AA Large needs 3:1 for text 24px and up, or 19px bold.</p>
+      <div class="ctgrid" id="ctgrid"></div>
+      <div class="tester panel">
+        <div class="tester-controls">
+          <div class="field"><label for="ct-bg">Background</label><select id="ct-bg"></select></div>
+          <div class="field"><label for="ct-fg">Text</label><select id="ct-fg"></select></div>
+        </div>
+        <div class="tester-sample" id="ct-sample" aria-live="polite">
+          <span class="ts-big">Claim your story.</span>
+          <span class="ts-body">Common Sycamore cultivates courage for Asian Americans to define and pursue their own paths.</span>
+        </div>
+        <div class="tester-result" id="ct-result"></div>
       </div>
     </div>
   </div>
@@ -682,6 +729,23 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
   $('#ramp-neutral').innerHTML = ramp(NEUTRAL);
   $('#ramps').innerHTML = Object.entries(RAMPS).map(([n,a])=>`<div class="ramp-label"><span>${n}</span><span class="mono">500 = brand ${n.toLowerCase()}</span></div><div class="ramp">${ramp(a)}</div>`).join('');
   $('#tokens').innerHTML = TOKENS.map(([t,h,ref,use])=>`<tr><td>${t}</td><td><span class="tok"><i style="background:${h}"></i>${ref} <span class="mono">${h}</span></span></td><td>${use}</td></tr>`).join('');
+
+  // contrast check: brand colors with white and ink text
+  const INK='#1C1917', WHITE='#FFFFFF';
+  const ratio=(a,b)=>{ const [x,y]=[lum(a),lum(b)].sort((p,q)=>q-p); return (x+.05)/(y+.05); };
+  const verdict=r=> r>=4.5 ? ['pass','AA'] : r>=3 ? ['large','AA Large only'] : ['fail','Fail'];
+  const badge=r=>{ const [c,t]=verdict(r); return `<span class="badge ${c}"><i aria-hidden="true"></i>${t}</span>`; };
+  const CT=[['Sycamore Blue','#1327EB'],['Blue 700','#0E1DAC'],['Sunlight','#F5D100'],['Bloom','#FD9EFF'],['White','#FFFFFF'],['Neutral 50','#F1EDEA'],['Neutral 700','#3F3A37'],['Neutral 900 · Ink','#1C1917']];
+  $('#ctgrid').innerHTML = CT.map(([n,h])=>`<div class="ct"><div class="ct-head"><b>${n}</b><span class="mono">${h}</span></div>${(h===WHITE?[['Ink',INK],['Blue','#1327EB']]:h===INK?[['White',WHITE],['Sunlight','#F5D100']]:[['White',WHITE],['Ink',INK]]).map(([tn,t])=>{ const r=ratio(h,t); return `<div class="ct-row" style="background:${h};color:${t}"><span class="aa">Aa ${tn} text<small>Claim your story.</small></span><span class="ct-meta"><span class="ct-ratio">${r.toFixed(1)}:1</span>${badge(r)}</span></div>`; }).join('')}</div>`).join('');
+  // tester: any palette color on any palette color
+  const OPTS=[...CT, ...STEPS.map((st,i)=>[`Blue ${st}`,RAMPS.Blue[i]]), ...STEPS.map((st,i)=>[`Yellow ${st}`,RAMPS.Yellow[i]]), ...STEPS.map((st,i)=>[`Pink ${st}`,RAMPS.Pink[i]]), ...STEPS.map((st,i)=>[`Neutral ${st}`,NEUTRAL[i]])]
+    .filter((o,i,a)=>a.findIndex(x=>x[1]===o[1])===i);
+  const opt=(sel)=>OPTS.map(([n,h])=>`<option value="${h}"${h===sel?' selected':''}>${n} · ${h}</option>`).join('');
+  $('#ct-bg').innerHTML=opt('#F5D100'); $('#ct-fg').innerHTML=opt(INK);
+  const test=()=>{ const bg=$('#ct-bg').value, fg=$('#ct-fg').value, r=ratio(bg,fg); const s=$('#ct-sample'); s.style.background=bg; s.style.color=fg;
+    const row=(label,ok)=>`<li><span>${label}</span><span class="badge ${ok?'pass':'fail'}"><i aria-hidden="true"></i>${ok?'Pass':'Fail'}</span></li>`;
+    $('#ct-result').innerHTML=`<span class="mono">Contrast ratio</span><span class="big">${r.toFixed(2)}:1</span><ul>${row('AA body text',r>=4.5)}${row('AA large text',r>=3)}${row('AA UI shapes',r>=3)}${row('AAA body text',r>=7)}</ul>`; };
+  $('#ct-bg').addEventListener('change',test); $('#ct-fg').addEventListener('change',test); test();
 
   // type
   $('#agchart').innerHTML = [['Body','var(--body)',400],['H6','var(--h6)',600],['H5','var(--h5)',600],['H4','var(--h4)',600],['H3','var(--h3)',500],['H2','var(--h2)',500],['H1','var(--h1)',500],['Hero','var(--hero)',500]].map(([n,s,w])=>`<div><span style="font-size:${s};font-weight:${w}">Ag</span><span class="mono">${n}</span></div>`).join('');
