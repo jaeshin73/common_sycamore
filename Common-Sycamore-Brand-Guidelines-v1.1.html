@@ -23,6 +23,9 @@
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --r-sm:8px; --r-md:16px; --r-lg:24px;
   --hero: clamp(4rem, 2.24rem + 7.51vw, 9rem);
+  --hero-home: var(--hero);
+  --hero-landing: clamp(3.5rem, 2.27rem + 5.26vw, 7rem);
+  --hero-campaign: clamp(4.5rem, 2.21rem + 9.77vw, 11rem);
   --h1: clamp(3rem, 2.47rem + 2.25vw, 4.5rem);
   --h2: clamp(2.5rem, 2.15rem + 1.5vw, 3.5rem);
   --h3: clamp(2rem, 1.74rem + 1.13vw, 2.75rem);
@@ -54,12 +57,15 @@ p{margin:0}
 .mstack{display:grid;gap:32px;justify-items:center;width:100%}
 .mfig{margin:0;width:100%;display:grid;justify-items:center;gap:12px}
 .mfig figcaption{font:500 12px/1.3 var(--mono);color:var(--sub);letter-spacing:.04em;text-transform:uppercase}
-.mstack[data-mode="orig"] .m-slow,.mstack[data-mode="slow"] .m-orig{display:none}
-.mstack[data-mode="both"] .mfig svg.motion{width:min(100%,640px)}
+.mstack[data-mode="orig"] .m-slow,.mstack[data-mode="orig"] .m-tight,.mstack[data-mode="slow"] .m-orig,.mstack[data-mode="slow"] .m-tight,.mstack[data-mode="tight"] .m-orig,.mstack[data-mode="tight"] .m-slow{display:none}
+.mstack[data-mode="both"] .mfig svg.motion{width:min(100%,560px)}
+.mstack[data-mode="both"]{gap:24px}
 .mseg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--white);gap:2px}
 .mseg button{font:500 14px/1 var(--sans);padding:10px 16px;border-radius:999px;border:0;background:transparent;color:var(--ink);cursor:pointer}
 .mseg button[aria-pressed="true"]{background:var(--blue);color:#fff}
 .mseg button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.intro-ctrl{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+[data-sound] .snd-wave{display:none} [data-sound][aria-pressed="true"] .snd-wave{display:inline} [data-sound][aria-pressed="true"] .snd-x{display:none}
 .intro-note{display:grid;gap:8px;max-width:58ch;margin-top:12px}
 .intro-note p{color:var(--sub)}
 .intro-foot{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between;padding-top:24px}
@@ -379,8 +385,17 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
         <g class="m-word"><use href="#cs-word1"/><use href="#cs-word2"/></g>
       </svg>
       </figure>
-      <figure class="mfig m-slow"><figcaption>Slower · 2.4 s · ×1.2</figcaption>
-      <svg class="motion" data-autoplay data-speed="1.2" viewBox="-10 -10 895 223" role="img" aria-label="Common Sycamore logo animation">
+      <figure class="mfig m-slow"><figcaption>Slower · 2.6 s · ×1.3</figcaption>
+      <svg class="motion" data-autoplay data-speed="1.3" viewBox="-10 -10 895 223" role="img" aria-label="Common Sycamore logo animation">
+        <circle class="ring" cx="99.3128" cy="102.98" r="49.6564" pathLength="1"/>
+        <g class="m-blue"><use href="#cs-mark" style="--cy:transparent;--cp:transparent"/></g>
+        <g class="m-yellow"><use href="#cs-mark" style="--cb:transparent;--cp:transparent"/></g>
+        <g class="m-pink"><use href="#cs-mark" style="--cb:transparent;--cy:transparent"/></g>
+        <g class="m-word"><use href="#cs-word1"/><use href="#cs-word2"/></g>
+      </svg>
+      </figure>
+      <figure class="mfig m-tight"><figcaption>Refined · 2.3 s · tighter leaf and wordmark</figcaption>
+      <svg class="motion" data-autoplay data-speed="1.2" data-delays="yel:575,pink:775,word:735" viewBox="-10 -10 895 223" role="img" aria-label="Common Sycamore logo animation, refined timing">
         <circle class="ring" cx="99.3128" cy="102.98" r="49.6564" pathLength="1"/>
         <g class="m-blue"><use href="#cs-mark" style="--cy:transparent;--cp:transparent"/></g>
         <g class="m-yellow"><use href="#cs-mark" style="--cb:transparent;--cp:transparent"/></g>
@@ -389,15 +404,18 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
       </svg>
       </figure>
       </div>
-      <div class="mseg" role="group" aria-label="Logo motion speed"><button type="button" data-mode="orig" aria-pressed="false">Original</button><button type="button" data-mode="slow" aria-pressed="false">Slower</button><button type="button" data-mode="both" aria-pressed="true">Compare</button></div>
-      <button class="btn secondary m" type="button" data-replay><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Replay</button>
+      <div class="mseg" role="group" aria-label="Logo motion speed"><button type="button" data-mode="orig" aria-pressed="false">Original</button><button type="button" data-mode="slow" aria-pressed="false">Slower</button><button type="button" data-mode="tight" aria-pressed="false">Refined</button><button type="button" data-mode="both" aria-pressed="true">Compare</button></div>
+      <div class="intro-ctrl"><button class="btn secondary m" type="button" data-replay><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Replay</button>
+      <button class="btn secondary m" type="button" data-sound aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path class="snd-wave" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/><line class="snd-x" x1="23" y1="9" x2="17" y2="15"/><line class="snd-x" x1="17" y1="9" x2="23" y2="15"/></svg><span>Sound off</span></button>
+      </div>
       <div class="intro-note">
-        <span class="eyebrow" id="mlabel">Logo motion · 2.0 and 2.4 seconds</span>
+        <span class="eyebrow" id="mlabel">Logo motion · 2.0, 2.6 and 2.3 seconds</span>
         <p>The half circle sweeps in from the top, turning back through the left. Then the two leaves sprout from the corners where they meet it, and the wordmark fades in as the second leaf grows.</p>
+        <p>Refined runs at ×1.2 pace but lets the yellow leaf follow the half circle sooner and brings the wordmark in earlier. Turn sound on to hear the logo sting, written for the podcast open: a quiet breath that rises with the half circle, five piano notes on an even beat (C, F, E, G, F) over a soft string bed, rising into one clean landing on F as the wordmark arrives. It is timed to whichever version is playing.</p>
       </div>
     </div>
     <div class="intro-foot">
-      <span class="mono">Brand guidelines · Version 1.0 · October 2026</span>
+      <span class="mono">Brand guidelines · Version 1.1 · October 2026</span>
       <a class="scrollcue" href="#hero">Scroll to explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
     </div>
   </div>
@@ -643,6 +661,16 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
     </div>
 
     <div class="block">
+      <h3>Hero sizes<span class="badge new">New in 1.1</span></h3>
+      <p class="sub">Hero headlines come in three sizes, matched to how much the page has to say. All three are Fraunces Regular and sit above H1 in the scale. Use one hero per page, and never pair two hero sizes on the same screen.</p>
+      <div class="grid g3">
+        <div class="panel"><div class="eyebrow">Landing page</div><div class="mono" style="margin-top:8px">112 / 116 desktop · 56 / 60 mobile</div><p style="color:var(--sub);margin-top:12px">Program, event and sign-up pages. The headline shares the first screen with a subhead, a form or a primary action, so it steps down one size.</p><p class="mono" style="margin-top:12px">--hero-landing</p></div>
+        <div class="panel"><div class="eyebrow">Homepage</div><div class="mono" style="margin-top:8px">144 / 144 desktop · 64 / 68 mobile</div><p style="color:var(--sub);margin-top:12px">The front door. One short line, two to four words, beside the hero artwork. This is the default hero size.</p><p class="mono" style="margin-top:12px">--hero-home</p></div>
+        <div class="panel"><div class="eyebrow">Campaign hero</div><div class="mono" style="margin-top:8px">176 / 168 desktop · 72 / 72 mobile</div><p style="color:var(--sub);margin-top:12px">Campaign pages, banners and backdrops where the line is the whole message. Tighter leading and tracking hold the words together at poster size. Keep it to six words or fewer.</p><p class="mono" style="margin-top:12px">--hero-campaign</p></div>
+      </div>
+    </div>
+
+    <div class="block">
       <h3>Scale · Plex Sans</h3>
       <p class="sub">Body is 18px on desktop and 16px on mobile. Each heading step multiplies by 1.25 on desktop and 1.2 on mobile, rounded to the 4px grid. Sizes below are live and fluid: resize the window to see them move between the two.</p>
       <div class="ag-chart" aria-hidden="true" id="agchart"></div>
@@ -752,7 +780,9 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
   ];
   const TYPE = [
     ['Eyebrow','14 / 20 · +8% · caps','14 / 20','SemiBold 600','.875rem',600,'Our mission','eyebrow'],
-    ['Hero','144 / 144 · −2%','64 / 68','Fraunces Regular 400','var(--hero)',400,'Claim your story.','serifrow',-0.02,1],
+    ['Hero · Campaign','176 / 168 · −3%','72 / 72','Fraunces Regular 400','var(--hero-campaign)',400,'Claim your story.','serifrow',-0.03,0.95],
+    ['Hero · Homepage','144 / 144 · −2%','64 / 68','Fraunces Regular 400','var(--hero-home)',400,'Claim your story.','serifrow',-0.02,1],
+    ['Hero · Landing page','112 / 116 · −2%','56 / 60','Fraunces Regular 400','var(--hero-landing)',400,'Claim your story.','serifrow',-0.02,1.04],
     ['H1','72 / 80 · −2%','48 / 56','Medium 500','var(--h1)',500,'Claim your story. Shape your path.',null,-0.02,1.1],
     ['H2','56 / 64 · −1.5%','40 / 48','Medium 500','var(--h2)',500,'Claim your story. Shape your path.',null,-0.015,1.14],
     ['H3','44 / 52 · −1%','32 / 40','Medium 500','var(--h3)',500,'Claim your story. Shape your path.',null,-0.01,1.18],
@@ -857,7 +887,7 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
   $('#ct-bg').addEventListener('change',test); $('#ct-fg').addEventListener('change',test); test();
 
   // type
-  $('#agchart').innerHTML = [['Body','var(--body)',400],['H6','var(--h6)',600],['H5','var(--h5)',600],['H4','var(--h4)',600],['H3','var(--h3)',500],['H2','var(--h2)',500],['H1','var(--h1)',500],['Hero','var(--hero)',400]].map(([n,s,w])=>`<div><span style="font-size:${s};font-weight:${w}${n==='Hero'?';font-family:var(--serif)':''}">Ag</span><span class="mono">${n}</span></div>`).join('');
+  $('#agchart').innerHTML = [['Body','var(--body)',400],['H6','var(--h6)',600],['H5','var(--h5)',600],['H4','var(--h4)',600],['H3','var(--h3)',500],['H2','var(--h2)',500],['H1','var(--h1)',500],['Hero L','var(--hero-landing)',400],['Hero H','var(--hero-home)',400],['Hero C','var(--hero-campaign)',400]].map(([n,s,w])=>`<div><span style="font-size:${s};font-weight:${w}${n.startsWith('Hero')?';font-family:var(--serif)':''}">Ag</span><span class="mono">${n}</span></div>`).join('');
   $('#scale').innerHTML = TYPE.map(([n,d,m,w,size,wt,sample,cls,ls,lh]) => `<div class="typerow"><div class="spec"><b>${n}</b><span class="mono">${w}</span><span class="mono">Desktop ${d}</span><span class="mono">Mobile ${m}</span></div><div class="sample ${cls||''}" style="${cls&&cls!=='serifrow'?'':`font-size:${size};font-weight:${wt};letter-spacing:${ls}em;line-height:${lh}`}${cls==='serifrow'?';font-family:var(--serif)':''}">${sample}</div></div>`).join('');
 
   // icons
@@ -933,15 +963,18 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
     yel.style.transformOrigin = '103.9px 99px'; pink.style.transformOrigin = '61.1px 103.3px';
     let anims = [];
     const K = parseFloat(svg.dataset.speed || '1');
+    // per-variant delay overrides, in base (×1) milliseconds
+    const D = {yel:650, pink:850, word:850};
+    (svg.dataset.delays||'').split(',').forEach(kv => { const [k,v] = kv.split(':'); if (k && v) D[k.trim()] = parseFloat(v); });
     const play = () => {
       if (!svg.animate && !ring.animate) return;
       anims.forEach(a => a.cancel());
       anims = [
         ring.animate([{opacity:1,strokeDasharray:'0 1',easing:'cubic-bezier(.65,0,.35,1)'},{opacity:1,strokeDasharray:'0.5 0.5',offset:.97},{opacity:0,strokeDasharray:'0.5 0.5'}],{duration:820*K,fill:'backwards'}),
         blue.animate([{opacity:0},{opacity:1}],{duration:60*K,delay:790*K,fill:'backwards'}),
-        yel.animate(sprout(1),{duration:900*K,delay:650*K,fill:'backwards'}),
-        pink.animate(sprout(-1),{duration:900*K,delay:850*K,fill:'backwards'}),
-        word.animate([{opacity:0},{opacity:1}],{duration:700*K,delay:850*K,easing:'ease-out',fill:'backwards'}),
+        yel.animate(sprout(1),{duration:900*K,delay:D.yel*K,fill:'backwards'}),
+        pink.animate(sprout(-1),{duration:900*K,delay:D.pink*K,fill:'backwards'}),
+        word.animate([{opacity:0},{opacity:1}],{duration:700*K,delay:D.word*K,easing:'ease-out',fill:'backwards'}),
       ];
     };
     svg._play = play;
@@ -953,16 +986,178 @@ footer .bottom{margin-top:64px;padding-top:24px;border-top:1px solid var(--n200)
       new IntersectionObserver((es, o) => es.forEach(en => { if (en.isIntersecting) { play(); o.disconnect(); } }), {threshold:.5}).observe(svg);
     }
   });
+  // logo sting: a short five-note motif synthesized live, timed to the motion
+  // "ta · ra · ta-ra-ta · taaan": ring starts, ring sweeps, yellow leaf sprouts, chord lands with the pink leaf and wordmark
+  const sndBtn = document.querySelector('[data-sound]');
+  let actx = null, bus = null;
+  const hz = n => 440 * Math.pow(2, (n - 69) / 12);
+  const bell = (ctx, out, t, midi, vel, len) => {
+    // soft mallet / celesta: a few partials with fast decay, slightly detuned for warmth
+    const g = ctx.createGain(); g.connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[1,1],[2,.26],[3,.07],[4.17,.03]].forEach(([m,a]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'sine'; o.frequency.value = hz(midi) * m; og.gain.value = a; og.gain.setTargetAtTime(a*.15, t, len*(m>1?.12:.4)); o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); });
+  };
+  const pad = (ctx, out, t, notes, vel, hold, rel) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(900, t); lp.frequency.linearRampToValueAtTime(2600, t + .25); lp.frequency.exponentialRampToValueAtTime(700, t + hold + rel);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .05); g.gain.setValueAtTime(vel, t + hold); g.gain.exponentialRampToValueAtTime(0.0001, t + hold + rel);
+    notes.forEach(n => [-6, 6].forEach(c => { const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = hz(n); o.detune.value = c; const og = ctx.createGain(); og.gain.value = 1 / notes.length; o.connect(og).connect(g); o.start(t); o.stop(t + hold + rel + .05); }));
+  };
+  // weight: a felt-piano body an octave under each note, a low boom and a warm low pad under the chord
+  const body = (ctx, out, t, midi, vel, len) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .4;
+    lp.frequency.setValueAtTime(1800, t); lp.frequency.exponentialRampToValueAtTime(380, t + len);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .012); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[0,1],[-12,.7],[7,.12]].forEach(([iv,a]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'triangle'; o.frequency.value = hz(midi + iv); og.gain.value = a; o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); });
+  };
+  const boom = (ctx, out, t, vel, len) => {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine';
+    o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(52, t + .35);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .02); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    o.connect(g).connect(out); o.start(t); o.stop(t + len + .05);
+  };
+  const warm = (ctx, out, t, notes, vel, hold, rel) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .6;
+    lp.frequency.setValueAtTime(500, t); lp.frequency.linearRampToValueAtTime(1400, t + .18); lp.frequency.exponentialRampToValueAtTime(320, t + hold + rel);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .04); g.gain.setValueAtTime(vel * .85, t + hold); g.gain.exponentialRampToValueAtTime(0.0001, t + hold + rel);
+    notes.forEach(n => [-7, 7].forEach(c => { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = hz(n); o.detune.value = c; const og = ctx.createGain(); og.gain.value = 1 / notes.length; o.connect(og).connect(g); o.start(t); o.stop(t + hold + rel + .05); }));
+  };
+  // timing comes from the variant: K = pace, D = delays in base ms (same numbers as the motion)
+  // quiet version: a breath that rises with the half circle, two soft felt notes for the leaves, one soft F major chord that settles with the wordmark
+  const felt = (ctx, out, t, midi, vel, len, bright = 1200) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .3;
+    lp.frequency.setValueAtTime(bright, t); lp.frequency.exponentialRampToValueAtTime(240, t + len);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .025); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[0,1,'sine'],[12,.22,'triangle'],[-12,.35,'sine']].forEach(([iv,a,ty]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = ty; o.frequency.value = hz(midi + iv); og.gain.value = a; o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); });
+  };
+  const breath = (ctx, out, t, notes, vel, rise, hold, rel) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .5;
+    lp.frequency.setValueAtTime(260, t); lp.frequency.linearRampToValueAtTime(850, t + rise); lp.frequency.exponentialRampToValueAtTime(220, t + rise + hold + rel);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + rise); g.gain.setValueAtTime(vel, t + rise + hold); g.gain.exponentialRampToValueAtTime(0.0001, t + rise + hold + rel);
+    notes.forEach(n => [-5, 5].forEach(c => { const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = hz(n); o.detune.value = c; const og = ctx.createGain(); og.gain.value = 1 / notes.length; o.connect(og).connect(g); o.start(t); o.stop(t + rise + hold + rel + .05); }));
+  };
+  // clear tone: sine with light upper partials, bright at the strike and mellowing as it rings
+  const clear = (ctx, out, t, midi, vel, len) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .2;
+    lp.frequency.setValueAtTime(4200, t); lp.frequency.exponentialRampToValueAtTime(1300, t + len);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .008); g.gain.exponentialRampToValueAtTime(vel * .35, t + .35); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[1,1],[2,.22],[3,.06],[4,.025]].forEach(([m,a]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'sine'; o.frequency.value = hz(midi) * m; og.gain.value = a; o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); });
+  };
+  const air = (ctx, out, t, notes, vel, rise, hold, rel) => {
+    const g = ctx.createGain(), hp = ctx.createBiquadFilter(), lp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.value = 220; lp.type = 'lowpass'; lp.frequency.setValueAtTime(900, t); lp.frequency.linearRampToValueAtTime(2200, t + rise);
+    g.connect(hp).connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + rise); g.gain.setValueAtTime(vel, t + rise + hold); g.gain.exponentialRampToValueAtTime(0.0001, t + rise + hold + rel);
+    notes.forEach(n => [-4, 4].forEach(c => { const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = hz(n); o.detune.value = c; const og = ctx.createGain(); og.gain.value = 1 / notes.length; o.connect(og).connect(g); o.start(t); o.stop(t + rise + hold + rel + .05); }));
+  };
+  // mallet: a soft marimba-like pluck, the hook voice
+  const mallet = (ctx, out, t, midi, vel, len) => {
+    const g = ctx.createGain(); g.connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .004); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[1,1,len],[3.93,.18,.08],[9.2,.04,.03]].forEach(([m,a,d]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'sine'; o.frequency.value = hz(midi) * m;
+      og.gain.setValueAtTime(a, t); og.gain.exponentialRampToValueAtTime(0.0001, t + d); o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); });
+  };
+  const hook = (ctx, out, t, midi, vel, len) => { mallet(ctx, out, t, midi, vel, len); clear(ctx, out, t, midi, vel * .45, len * 1.6); };
+  // corporate palette: polished piano, a soft string bed, a light riser into the landing, a clean bell on top, a touch of room
+  const piano = (ctx, out, t, midi, vel, len) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .3;
+    lp.frequency.setValueAtTime(5200, t); lp.frequency.exponentialRampToValueAtTime(1500, t + .5); lp.frequency.exponentialRampToValueAtTime(700, t + len);
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + .005); g.gain.exponentialRampToValueAtTime(vel * .4, t + .25); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    [[1,1,-3],[1,.6,3],[2,.38,0],[3,.14,0],[4,.07,0],[5,.03,0]].forEach(([m,a,c]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = 'sine'; o.frequency.value = hz(midi) * m * (1 + .0004*m*m); o.detune.value = c; og.gain.value = a / 2; o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); });
+  };
+  const strings = (ctx, out, t, notes, vel, len) => {
+    const g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1700; lp.Q.value = .4;
+    g.connect(lp).connect(out);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vel, t + Math.min(.25, len * .4)); g.gain.setValueAtTime(vel, t + len * .7); g.gain.linearRampToValueAtTime(0.0001, t + len);
+    notes.forEach(n => [-9, 0, 9].forEach(c => { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = hz(n); o.detune.value = c; const og = ctx.createGain(); og.gain.value = 1 / (notes.length * 3); o.connect(og).connect(g); o.start(t); o.stop(t + len + .05); }));
+  };
+  const riser = (ctx, out, t, len, vel) => {
+    const n = ctx.sampleRate * len, buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    const src = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain(); src.buffer = buf; bp.type = 'bandpass'; bp.Q.value = 1.2;
+    bp.frequency.setValueAtTime(700, t); bp.frequency.exponentialRampToValueAtTime(6000, t + len);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + len * .95); g.gain.linearRampToValueAtTime(0.0001, t + len);
+    src.connect(bp).connect(g).connect(out); src.start(t); src.stop(t + len);
+  };
+  const room = (ctx, dest, secs, wet) => {
+    const n = Math.floor(ctx.sampleRate * secs), ir = ctx.createBuffer(2, n, ctx.sampleRate);
+    for (let ch = 0; ch < 2; ch++) { const d = ir.getChannelData(ch); for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3.2); }
+    const cv = ctx.createConvolver(); cv.buffer = ir; const wg = ctx.createGain(); wg.gain.value = wet; cv.connect(wg).connect(dest);
+    const input = ctx.createGain(); input.connect(dest); input.connect(cv); return input;
+  };
+  const renderSting = (ctx, out, t0, K, D) => {
+    // same five notes on the same grid: C5 · F5 · E5 · G5 → F5, harmony F · C · F
+    const F = (D.pink/1000 + .28)*K, u = F / 6, T = n => t0 + .02 + n*u;
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 45;
+    const dip = ctx.createBiquadFilter(); dip.type = 'peaking'; dip.frequency.value = 320; dip.Q.value = .9; dip.gain.value = -3;
+    const air = ctx.createBiquadFilter(); air.type = 'highshelf'; air.frequency.value = 7000; air.gain.value = 2;
+    hp.connect(dip).connect(air).connect(out);
+    const bus = room(ctx, hp, 1.6, .22);
+    const at = pan => { if (!ctx.createStereoPanner) return bus; const sp = ctx.createStereoPanner(); sp.pan.value = pan; sp.connect(bus); return sp; };
+    // melody: piano, doubled an octave down very softly for polish
+    [[0,72,2],[2,77,2],[4,76,1],[5,79,1]].forEach(([st, m, dur]) => { piano(ctx, at(.08), T(st), m, .22, dur*u + .5); piano(ctx, at(-.08), T(st), m - 12, .07, dur*u + .4); });
+    // harmony: piano chords + string bed that moves F → C
+    [[0,[53,60,65,69],41,4],[4,[55,60,64,67],48,2]].forEach(([st, ch, bass, dur]) => {
+      ch.forEach((n, i) => piano(ctx, at(i % 2 ? .3 : -.3), T(st) + i*.006, n, .055, dur*u + .3));
+      piano(ctx, at(0), T(st), bass, .16, dur*u + .2);
+      strings(ctx, at(st ? .2 : -.2), T(st), ch.slice(1), .05, dur*u + .12);
+    });
+    riser(ctx, at(0), T(4), 2*u, .035);
+    // landing: piano F5 + F4, bell F6, full F chord, bass, strings swell and a soft low hit
+    const L = T(6);
+    piano(ctx, at(0), L, 77, .3, 2.2); piano(ctx, at(0), L, 65, .14, 2.0);
+    bell(ctx, at(.15), L + .005, 89, .07, 1.6);
+    [53, 60, 65, 69, 72].forEach((n, i) => piano(ctx, at(i % 2 ? .35 : -.35), L + i*.008, n, .07, 2.0));
+    piano(ctx, at(0), L, 41, .22, 2.3); piano(ctx, at(0), L, 29, .08, 1.8);
+    strings(ctx, at(0), L, [53, 57, 60, 65, 69], .07, 2.0);
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine';
+    o.frequency.setValueAtTime(95, L); o.frequency.exponentialRampToValueAtTime(46, L + .22);
+    g.gain.setValueAtTime(0.0001, L); g.gain.exponentialRampToValueAtTime(.24, L + .008); g.gain.exponentialRampToValueAtTime(0.0001, L + .38);
+    o.connect(g).connect(hp); o.start(L); o.stop(L + .45);
+  };
+  const variantFor = () => {
+    const mode = $('#mstack').dataset.mode;
+    const svg = document.querySelector(mode === 'orig' ? '.m-orig svg' : mode === 'tight' ? '.m-tight svg' : '.m-slow svg');
+    const D = {yel:650, pink:850}; (svg.dataset.delays||'').split(',').forEach(kv => { const [k,v] = kv.split(':'); if (k && v) D[k.trim()] = parseFloat(v); });
+    return [parseFloat(svg.dataset.speed || '1'), D];
+  };
+  const playSting = () => {
+    if (!sndBtn || sndBtn.getAttribute('aria-pressed') !== 'true') return;
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    if (!actx) { actx = new AC(); }
+    if (actx.state === 'suspended') actx.resume();
+    if (bus) { const old = bus; old.gain.setTargetAtTime(0, actx.currentTime, .02); setTimeout(() => old.disconnect(), 200); }
+    bus = actx.createGain(); bus.gain.value = .7;
+    const comp = actx.createDynamicsCompressor(); bus.connect(comp).connect(actx.destination);
+    const [K, D] = variantFor();
+    renderSting(actx, bus, actx.currentTime + .02, K, D);
+  };
+  window.CS_renderSting = renderSting;
+  const replayAll = () => { document.querySelectorAll('#mstack svg.motion').forEach(v => v._play && v._play()); playSting(); };
+  const replayBtn = document.querySelector('[data-replay]');
+  if (replayBtn) replayBtn.addEventListener('click', playSting);
+  if (sndBtn) sndBtn.addEventListener('click', () => {
+    const on = sndBtn.getAttribute('aria-pressed') !== 'true';
+    sndBtn.setAttribute('aria-pressed', String(on));
+    sndBtn.querySelector('span').textContent = on ? 'Sound on' : 'Sound off';
+    if (on) replayAll(); else if (bus) { bus.gain.setTargetAtTime(0, actx.currentTime, .03); }
+  });
   // speed compare toggle
   const stack = $('#mstack'), seg = document.querySelector('.mseg');
   if (stack && seg) {
-    const LABEL = {orig:'Logo motion · 2.0 seconds', slow:'Logo motion · 2.4 seconds', both:'Logo motion · 2.0 and 2.4 seconds'};
+    const LABEL = {orig:'Logo motion · 2.0 seconds', slow:'Logo motion · 2.6 seconds', tight:'Logo motion · 2.3 seconds · refined', both:'Logo motion · 2.0, 2.6 and 2.3 seconds'};
     seg.addEventListener('click', e => {
       const b = e.target.closest('button[data-mode]'); if (!b) return;
       stack.dataset.mode = b.dataset.mode;
       seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
       $('#mlabel').textContent = LABEL[b.dataset.mode];
       stack.querySelectorAll('svg.motion').forEach(v => v._play && v._play());
+      playSting();
     });
   }
 })();
